@@ -7,27 +7,39 @@ import VueRouter from "vue-router" //光引入还是不能使用，通过Vue.use
 import VueResource from 'vue-resource'
 import Apple from './components/apple'
 import Banana from './components/banana'
+import YellowBanana from './components/yellow_banana'
 
 /* eslint-disable no-new */
 Vue.use(VueRouter)
 Vue.use(VueResource)
 let router = new VueRouter({
-  routes:[
+  mode: 'history',
+  routes: [
     {
-      path:'/apple',
-      component:Apple
+      path: '/',
+      redirect: '/apple'
+    },
+    {
+      path: '/apple/:color',
+      component: Apple
     }, {
-      path:'/banana',
-      component:Banana
+      path: '/banana',
+      component: Banana,
+      children: [
+        {
+          path: 'yellow',
+          component: YellowBanana
+        }
+      ]
     }
   ]
 
 })
 new Vue({
-  el:'#app',
+  el: '#app',
   router,
-  template:'<App/>',
-  components:{App}
+  template: '<App/>',
+  components: {App}
 })
 // new Vue({
 //   el: '#app',

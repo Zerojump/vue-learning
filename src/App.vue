@@ -2,6 +2,10 @@
   <div id="app">
     <img src="./assets/logo.png">
     <router-view></router-view>
+    <router-link :to="{path:'apple',param:{color:'red'}}">to apple</router-link>
+<!--    <router-link to="apple">to apple</router-link>-->
+    <router-link :to="{path:'banana'}">to banana</router-link>
+    <router-link :to="{path:'banana/yellow'}">to yellow banana</router-link>
   </div>
 </template>
 
