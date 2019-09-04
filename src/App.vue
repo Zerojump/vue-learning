@@ -26,7 +26,52 @@
     <br>
     <input @keydown.enter="onKeyDown">
     <br>
-    <component-a @my-event="onComaMyEventA"></component-a>
+    my-event<component-a @my-event="onComaMyEventA"></component-a>
+    <br>
+    <input v-model="myValue" type="text">
+    <input v-model.lazy="myValue" type="text">
+    <input v-model.number="myValue" type="text">
+    <input v-model.trim="myValue" type="text">
+    {{myValue}}
+    {{typeof myValue}}
+    <br>
+    <input v-model="myBox" type="checkbox" value="apple">
+    <input v-model="myBox" type="checkbox" value="banana">
+    <input v-model="myBox" type="checkbox" value="pinapple">
+    {{myBox}}
+    <br>
+    <input v-model="myRadio" type="radio" value="apple">
+    <input v-model="myRadio" type="radio" value="banana">
+    <input v-model="myRadio" type="radio" value="pinapple">
+    {{myRadio}}
+    <br>
+    <select v-model="selection">
+      <option value="1">1</option>
+      <option value="2">2</option>
+    </select>
+    {{selection}}
+    <br>
+    <select v-model="selection">
+      <option v-for="item in selectOption" :value="item.value">{{item.text}}</option>
+    </select>
+    {{selection}}
+    <br>
+    <input v-model="myValue2" type="text">
+    {{myValueWithoutNum}}
+    {{getValueWithoutNum()}}
+    <br>
+    <p :is="comToRender"></p>
+    <br>
+  <component-a num-to-do=3></component-a>
+    <br>
+    <input v-model="myValue3" type="text">
+    <component-a :my-value3="myValue3"></component-a>
+    <br>
+    my-event
+    <component-a :my-value3="myValue3" @my-event="getMyEvent">
+      <p slot="footer">xxxx footer</p>
+    </component-a>
+    <br>
   </div>
 </template>
 
@@ -36,8 +81,24 @@
 
     export default {
         components: {componentA},
+        computed:{
+            myValueWithoutNum(){
+                return this.myValue2.replace(/\d/g,'')
+            }
+        },
         data() {
             return {
+                comToRender:'component-a',
+                myValue2:'',
+                myValue3:'',
+                selectOption:[
+                    {text:'apple',value:0},
+                    {text:'banana',value:1},
+                ],
+                selection:null,
+                myBox:[],
+                myRadio:'',
+                myValue:'',
                 hello: 'world',
                 num: 1,
                 flag: true,
@@ -76,6 +137,17 @@
             },
             onComaMyEventA(paramFromA){
                 console.log('paramFromA:'+paramFromA)
+            },
+            getValueWithoutNum(){
+                return this.myValue2.replace(/\d/g,'')
+            },
+            getMyEvent(hello){
+                console.log('i got my event' +hello)
+            }
+        },
+        watch:{
+            myValue2:function (val,oldVal) {
+                console.log(val,oldVal)
             }
         }
     }
