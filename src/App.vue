@@ -143,6 +143,7 @@
             },
             getMyEvent(hello){
                 console.log('i got my event' +hello)
+                this.$http
             }
         },
         watch:{
