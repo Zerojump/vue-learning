@@ -8,21 +8,40 @@ import VueResource from 'vue-resource'
 import Apple from './components/apple'
 import Banana from './components/banana'
 import YellowBanana from './components/yellow_banana'
+import Vuex from 'vuex'
 
 /* eslint-disable no-new */
 Vue.use(VueRouter)
 Vue.use(VueResource)
+Vue.use(Vuex)
+
+let store = new Vuex.Store({
+  state: {
+    totalPrice: 0
+  }, mutations: {
+    increment(state, price) {
+      state.totalPrice += price
+    }, decrement(state, price) {
+      state.totalPrice -= price
+    }
+  }
+})
 let router = new VueRouter({
   mode: 'history',
   routes: [
+    // {
+    //   path: '/',
+    //   redirect: '/apple'
+    // },
+    // {
+    //   path: '/apple/:color',
+    //   component: Apple
+    // },
     {
-      path: '/',
-      redirect: '/apple'
+      path: '/apple',
+      component: Apple
     },
     {
-      path: '/apple/:color',
-      component: Apple
-    }, {
       path: '/banana',
       component: Banana,
       children: [
@@ -38,6 +57,7 @@ let router = new VueRouter({
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: {App}
 })
