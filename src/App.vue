@@ -20,7 +20,8 @@
     components: {Apple, Banana},
     computed: {
       totalPrice() {
-        return this.$store.state.totalPrice
+        // return this.$store.state.totalPrice
+        return this.$store.getters.getTotal
       }
     },
     name: 'App'

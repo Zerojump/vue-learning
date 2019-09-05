@@ -18,11 +18,21 @@ Vue.use(Vuex)
 let store = new Vuex.Store({
   state: {
     totalPrice: 0
-  }, mutations: {
+  },
+  getters: {
+    getTotal(state) {
+      return state.totalPrice
+    }
+  },
+  mutations: {
     increment(state, price) {
       state.totalPrice += price
     }, decrement(state, price) {
       state.totalPrice -= price
+    }
+  }, actions: {
+    increase(context, price) {
+      context.commit('increment', price)
     }
   }
 })
